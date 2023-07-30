@@ -43,20 +43,4 @@ public class CreateWorkFlowUseCase2Test {
         assertEquals(1, domainEvent.getEvents().size());
 
     }
-
-
-    class InMemoryRepository2 implements WorkFlowRepository2 {
-        private List<WorkFlow2> list = new ArrayList<>();
-
-        @Override
-        public Optional<WorkFlow2> getById(String workflowId) {
-            return list.stream().filter(flow -> flow.getWorkFlowId().equals(workflowId)).findFirst();
-        }
-
-        @Override
-        public String save(WorkFlow2 workFlow) {
-            list.add(workFlow);
-            return workFlow.getWorkFlowId();
-        }
-    }
 }
