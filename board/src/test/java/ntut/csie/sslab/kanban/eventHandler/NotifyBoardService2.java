@@ -6,6 +6,7 @@ import ntut.csie.sslab.ddd.usecase.DomainEventBus;
 import ntut.csie.sslab.kanban.board.entity.Board;
 import ntut.csie.sslab.kanban.board.usecase.port.out.BoardRepository;
 import ntut.csie.sslab.kanban.workflow.entity.event.WorkFlowCreatedEvent;
+import ntut.csie.sslab.kanban.workflow.entity.event.WorkflowCreated;
 
 public class NotifyBoardService2 {
 
@@ -19,9 +20,9 @@ public class NotifyBoardService2 {
     }
 
     @Subscribe
-    public void whenWorkFlowCommitted(WorkFlowCreatedEvent event) {
-        Board board = boardRepository.findById(event.getBoardId()).get();
-        board.commitWorkflow(event.getWorkFlowId());
+    public void whenWorkFlowCommitted(WorkflowCreated event) {
+        Board board = boardRepository.findById(event.boardId()).get();
+        board.commitWorkflow(event.workflowId());
         boardRepository.save(board);
         domainEventBus.postAll(board);
     }
